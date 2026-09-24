@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Samuel Guerrero | Ingeniero de Software</title>
+<meta name="description" content="Samuel Guerrero, ingeniero de software. Inteligencia artificial para imágenes médicas, control de acceso biométrico y sistemas empresariales.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo: #EEF2EF;
+    --superficie: #FFFFFF;
+    --tinta: #16211E;
+    --tinta-suave: #4A5A55;
+    --linea: #C9D3CE;
+    --acento: #0B7A75;
+    --senal: #D98E04;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --texto: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #121A18;
+      --superficie: #1A2522;
+      --tinta: #E6EEEA;
+      --tinta-suave: #9FB2AC;
+      --linea: #2E3D39;
+      --acento: #3FC1B8;
+      --senal: #F2B53A;
+    }
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--tinta);
+    font-family: var(--texto);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  a { color: var(--acento); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--senal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  img { max-width: 100%; }
+
+  .contenedor {
+    width: 100%;
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Navegación */
+  nav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: color-mix(in srgb, var(--fondo) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--linea);
+  }
+  nav .contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.5rem;
+  }
+  nav .marca {
+    font-family: var(--display);
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--tinta);
+  }
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul a {
+    color: var(--tinta-suave);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  nav ul a:hover { color: var(--tinta); }
+
+  /* Portada con línea de escaneo */
+  .portada {
+    padding: 6rem 0 5rem;
+  }
+  .escaneo {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .portada h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3rem, 11vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+  .escaneo::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -10%;
+    width: 4px;
+    background: var(--acento);
+    box-shadow: 0 0 24px 6px color-mix(in srgb, var(--acento) 45%, transparent);
+    animation: barrer 1.8s cubic-bezier(.6,0,.3,1) 0.3s forwards;
+    opacity: 0;
+  }
+  .escaneo h1 {
+    clip-path: inset(0 100% 0 0);
+    animation: revelar 1.8s cubic-bezier(.6,0,.3,1) 0.3s forwards;
+  }
+  @keyframes barrer {
+    0% { left: 0; opacity: 1; }
+    92% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+  @keyframes revelar {
+    to { clip-path: inset(0 0 0 0); }
+  }
+  .portada .rol {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: var(--acento);
+    margin: 1.5rem 0 1rem;
+  }
+  .portada .resumen {
+    max-width: 38rem;
+    color: var(--tinta-suave);
+    font-size: 1.15rem;
+    margin: 0 0 2rem;
+  }
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .boton {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid var(--tinta);
+    color: var(--tinta);
+  }
+  .boton.primario {
+    background: var(--tinta);
+    color: var(--fondo);
+  }
+  .boton:hover { border-color: var(--acento); }
+  .boton.primario:hover { background: var(--acento); border-color: var(--acento); }
+
+  /* Secciones */
+  section { padding: 4.5rem 0; }
+  section + section { border-top: 1px solid var(--linea); }
+  h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0 0 2.5rem;
+  }
+
+  /* Sobre mí */
+  .sobre {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .sobre p { max-width: 40rem; margin: 0 0 1rem; }
+  .foto {
+    width: 11rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--superficie);
+    border: 2px solid var(--linea);
+    display: grid;
+    place-items: center;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 3rem;
+    color: var(--acento);
+    overflow: hidden;
+  }
+  .foto img { width: 100%; height: 100%; object-fit: cover; }
+  @media (min-width: 48rem) {
+    .sobre { grid-template-columns: 11rem 1fr; gap: 3.5rem; }
+  }
+
+  /* Proyectos */
+  .proyectos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .proyecto {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--linea);
+  }
+  .proyecto:last-child { border-bottom: 1px solid var(--linea); }
+  .proyecto h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .estado {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--tinta-suave);
+  }
+  .estado.activo { color: var(--senal); }
+  .estado.activo::before {
+    content: "";
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--senal);
+    margin-right: 0.4rem;
+    vertical-align: 0.05rem;
+  }
+  .proyecto p { margin: 0 0 1rem; max-width: 40rem; }
+  .etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .etiquetas li {
+    font-size: 0.85rem;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--linea);
+    border-radius: 999px;
+    color: var(--tinta-suave);
+    background: var(--superficie);
+  }
+  @media (min-width: 48rem) {
+    .proyecto { grid-template-columns: 18rem 1fr; }
+  }
+
+  /* Habilidades */
+  .habilidades {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 2rem;
+  }
+  .habilidades h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0 0 0.75rem;
+    color: var(--acento);
+  }
+  .habilidades ul { list-style: none; margin: 0; padding: 0; }
+  .habilidades li { padding: 0.3rem 0; border-bottom: 1px solid var(--linea); }
+
+  /* Contacto */
+  .contacto p { max-width: 36rem; color: var(--tinta-suave); margin: 0 0 2rem; }
+  .correo {
+    display: inline-block;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 4.5vw, 2.5rem);
+    word-break: break-all;
+    margin-bottom: 2rem;
+  }
+  .redes { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+  .redes a { font-weight: 700; }
+
+  footer {
+    padding: 2rem 0;
+    border-top: 1px solid var(--linea);
+    color: var(--tinta-suave);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 36rem) {
+    nav ul { gap: 1rem; }
+    nav ul li:nth-child(3) { display: none; }
+    .portada { padding: 4rem 0 3.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .escaneo h1 { animation: none; clip-path: none; }
+    .escaneo::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="contenedor">
+    <a class="marca" href="#">Samuel Guerrero</a>
+    <ul>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <header class="portada">
+    <div class="contenedor">
+      <div class="escaneo"><h1>Samuel<br>Guerrero</h1></div>
+      <p class="rol">Ingeniero de Software</p>
+      <p class="resumen">
+        Desarrollo software que resuelve problemas concretos: modelos de inteligencia artificial
+        que analizan imágenes para detectar enfermedades, sistemas de control de acceso biométrico
+        y aplicaciones para la gestión interna de empresas.
+      </p>
+      <div class="acciones">
+        <a class="boton primario" href="#proyectos">Ver proyectos</a>
+        <!-- Sube tu hoja de vida como cv.pdf en la raíz del repositorio -->
+        <a class="boton" href="cv.pdf" download>Descargar hoja de vida</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="sobre-mi">
+    <div class="contenedor">
+      <h2>Sobre mí</h2>
+      <div class="sobre">
+        <div class="foto">
+          <!-- Para usar tu foto: sube img/foto.jpg y cambia "SG" por
+               <img src="img/foto.jpg" alt="Samuel Guerrero"> -->
+          SG
+        </div>
+        <div>
+          <p>
+            Soy ingeniero de software. Me interesa construir herramientas que se usen en el día a día
+            y que tengan un impacto real, desde el diagnóstico médico asistido por inteligencia artificial
+            hasta los sistemas que usan las personas dentro de una organización.
+          </p>
+          <p>
+            <!-- EDITA: agrega tu formación (universidad, año) y lo que te gustaría hacer a futuro -->
+            Actualmente trabajo en CEDENAR S.A. E.S.P., desarrollando software para la gestión interna de la empresa.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <div class="contenedor">
+      <h2>Proyectos</h2>
+      <ul class="proyectos">
+
+        <li class="proyecto">
+          <div>
+            <h3>Software para CEDENAR S.A. E.S.P.</h3>
+            <span class="estado activo">En desarrollo</span>
+          </div>
+          <div>
+            <p>
+              Desarrollo de un sistema para la Oficina de Personal de CEDENAR, empresa de servicios
+              públicos de energía. Participo en el diseño y la construcción completa de la aplicación.
+            </p>
+            <!-- EDITA: cambia las etiquetas por las tecnologías que usas -->
+            <ul class="etiquetas">
+              <li>Desarrollo full stack</li>
+              <li>Bases de datos</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="proyecto">
+          <div>
+            <h3>Detección de enfermedades en imágenes con IA</h3>
+            <span class="estado">Proyecto</span>
+          </div>
+          <div>
+            <p>
+              Modelo de inteligencia artificial que identifica patrones en imágenes para apoyar la
+              detección de enfermedades.
+            </p>
+            <!-- EDITA: tipo de imágenes, enfermedad, precisión obtenida, tecnologías -->
+            <ul class="etiquetas">
+              <li>Inteligencia artificial</li>
+              <li>Visión por computadora</li>
+            </ul>
+            <!-- Cambia el enlace por el de tu repositorio -->
+            <a href="https://github.com/TU-USUARIO/NOMBRE-DEL-REPO">Ver en GitHub</a>
+          </div>
+        </li>
+
+        <li class="proyecto">
+          <div>
+            <h3>Administración de control de acceso biométrico</h3>
+            <span class="estado">Proyecto</span>
+          </div>
+          <div>
+            <p>
+              Aplicación web para administrar un dispositivo de control de acceso biométrico:
+              gestión de usuarios, permisos y registros de ingreso.
+            </p>
+            <!-- EDITA: ajusta la descripción y las tecnologías -->
+            <ul class="etiquetas">
+              <li>Aplicación web</li>
+              <li>Biometría</li>
+            </ul>
+            <a href="https://github.com/TU-USUARIO/NOMBRE-DEL-REPO">Ver en GitHub</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <section id="habilidades">
+    <div class="contenedor">
+      <h2>Habilidades</h2>
+      <!-- EDITA: reemplaza con tus lenguajes y herramientas reales -->
+      <div class="habilidades">
+        <div>
+          <h3>Lenguajes</h3>
+          <ul>
+            <li>Python</li>
+            <li>JavaScript</li>
+            <li>SQL</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Inteligencia artificial</h3>
+          <ul>
+            <li>Visión por computadora</li>
+            <li>Análisis de datos</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Desarrollo web</h3>
+          <ul>
+            <li>Frontend</li>
+            <li>Backend y APIs</li>
+            <li>Git y GitHub</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Idiomas</h3>
+          <ul>
+            <li>Español (nativo)</li>
+            <li>Italiano (en aprendizaje)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="contacto">
+    <div class="contenedor">
+      <h2>Contacto</h2>
+      <p>Si quieres hablar de un proyecto o una oportunidad de trabajo, escríbeme.</p>
+      <!-- EDITA: tu correo (en los dos lugares) -->
+      <a class="correo" href="mailto:tu-correo@ejemplo.com">tu-correo@ejemplo.com</a>
+      <div class="redes">
+        <a href="https://github.com/TU-USUARIO">GitHub</a>
+        <a href="https://www.linkedin.com/in/TU-PERFIL">LinkedIn</a>
+        <a href="cv.pdf" download>Hoja de vida (PDF)</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    © <span id="anio">2026</span> Samuel Guerrero
+  </div>
+</footer>
+
+<script>
+  document.getElementById("anio").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
